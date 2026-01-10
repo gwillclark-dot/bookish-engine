@@ -1,0 +1,367 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🌊 Vibe Coding Demo</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            padding: 20px;
+            color: #333;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            color: white;
+            text-align: center;
+            margin-bottom: 10px;
+            font-size: 2.5em;
+        }
+
+        .subtitle {
+            color: rgba(255, 255, 255, 0.9);
+            text-align: center;
+            margin-bottom: 30px;
+            font-size: 1.1em;
+        }
+
+        .demo-section {
+            background: white;
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .demo-section h2 {
+            color: #667eea;
+            margin-bottom: 15px;
+            font-size: 1.5em;
+        }
+
+        .demo-section p {
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            width: 100%;
+            margin-bottom: 10px;
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+        }
+
+        button:active {
+            transform: translateY(0);
+        }
+
+        .output {
+            background: #f7f7f7;
+            border-left: 4px solid #667eea;
+            padding: 20px;
+            border-radius: 8px;
+            margin-top: 15px;
+            font-family: 'Courier New', monospace;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            min-height: 60px;
+            display: none;
+        }
+
+        .output.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .quote-text {
+            font-size: 1.3em;
+            color: #333;
+            margin-bottom: 10px;
+            font-style: italic;
+        }
+
+        .quote-author {
+            color: #667eea;
+            font-weight: bold;
+        }
+
+        .color-box {
+            width: 100%;
+            height: 150px;
+            border-radius: 8px;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.5em;
+            font-weight: bold;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .vibe-log {
+            background: #f7f7f7;
+            padding: 15px;
+            border-radius: 8px;
+            margin-top: 15px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .vibe-entry {
+            padding: 10px;
+            background: white;
+            border-radius: 5px;
+            margin-bottom: 10px;
+            border-left: 3px solid #667eea;
+        }
+
+        input {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #e0e0e0;
+            border-radius: 8px;
+            font-size: 16px;
+            margin-bottom: 10px;
+            transition: border-color 0.3s;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #667eea;
+        }
+
+        .footer {
+            text-align: center;
+            color: white;
+            margin-top: 30px;
+            opacity: 0.8;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌊 Vibe Coding Demo</h1>
+        <p class="subtitle">Interactive examples from the guide</p>
+
+        <!-- Quote Machine -->
+        <div class="demo-section">
+            <h2>💭 Quote Machine</h2>
+            <p>Get a random motivational quote about coding and creating.</p>
+            <button onclick="generateQuote()">Get Random Quote</button>
+            <div id="quote-output" class="output"></div>
+        </div>
+
+        <!-- Color Generator -->
+        <div class="demo-section">
+            <h2>🎨 Color Vibe Generator</h2>
+            <p>Generate a random color palette for your next project.</p>
+            <button onclick="generateColors()">Generate Color Palette</button>
+            <div id="color-output" class="output"></div>
+        </div>
+
+        <!-- Vibe Tracker -->
+        <div class="demo-section">
+            <h2>📊 Vibe Tracker</h2>
+            <p>Log what you're building and track your vibe coding sessions.</p>
+            <input type="text" id="project-name" placeholder="Project name...">
+            <input type="text" id="project-desc" placeholder="What are you building?">
+            <button onclick="logVibe()">Log This Vibe</button>
+            <div id="vibe-log" class="vibe-log" style="display:none;"></div>
+        </div>
+
+        <!-- Project Idea Generator -->
+        <div class="demo-section">
+            <h2>💡 Vibe Check</h2>
+            <p>Not sure what to build? Get a random project idea based on your vibe.</p>
+            <button onclick="vibeCheck()">What Should I Build?</button>
+            <div id="vibe-output" class="output"></div>
+        </div>
+
+        <div class="footer">
+            <p>Built with vibe coding ✨</p>
+            <p>Check out the full guide in README.md</p>
+        </div>
+    </div>
+
+    <script>
+        // Quote Machine
+        const quotes = [
+            { text: "Code anything.", author: "The Vibe" },
+            { text: "Perfect is the enemy of shipped.", author: "Voltaire (paraphrased)" },
+            { text: "Your first draft is supposed to suck.", author: "Everyone Eventually" },
+            { text: "Start messy. Refactor never (jk, maybe later).", author: "Vibe Coders" },
+            { text: "If it works, it works.", author: "Ancient Dev Proverb" },
+            { text: "Build it now, name it later.", author: "README-less Projects" },
+            { text: "You don't need permission to create.", author: "You" },
+            { text: "Every expert was once a beginner who didn't quit.", author: "Anonymous" },
+            { text: "The best time to start was yesterday. The second best time is now.", author: "Also Anonymous" },
+            { text: "Make it work, make it right, make it fast. In that order.", author: "Kent Beck" }
+        ];
+
+        function generateQuote() {
+            const quote = quotes[Math.floor(Math.random() * quotes.length)];
+            const output = document.getElementById('quote-output');
+            output.innerHTML = `
+                <div class="quote-text">💭 "${quote.text}"</div>
+                <div class="quote-author">— ${quote.author}</div>
+            `;
+            output.classList.add('show');
+        }
+
+        // Color Generator
+        function generateColors() {
+            const output = document.getElementById('color-output');
+            const colors = [];
+            let html = '';
+
+            for (let i = 0; i < 5; i++) {
+                const color = '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+                colors.push(color);
+                html += `
+                    <div class="color-box" style="background-color: ${color}">
+                        ${color.toUpperCase()}
+                    </div>
+                `;
+            }
+
+            output.innerHTML = html;
+            output.classList.add('show');
+        }
+
+        // Vibe Tracker
+        let vibes = JSON.parse(localStorage.getItem('vibes') || '[]');
+
+        function logVibe() {
+            const projectName = document.getElementById('project-name').value.trim();
+            const projectDesc = document.getElementById('project-desc').value.trim();
+
+            if (!projectName || !projectDesc) {
+                alert('Fill in both fields to log your vibe!');
+                return;
+            }
+
+            const vibe = {
+                project: projectName,
+                description: projectDesc,
+                timestamp: new Date().toLocaleString(),
+                vibe: '🌊'
+            };
+
+            vibes.unshift(vibe);
+            localStorage.setItem('vibes', JSON.stringify(vibes));
+
+            document.getElementById('project-name').value = '';
+            document.getElementById('project-desc').value = '';
+
+            displayVibes();
+        }
+
+        function displayVibes() {
+            const log = document.getElementById('vibe-log');
+
+            if (vibes.length === 0) {
+                log.style.display = 'none';
+                return;
+            }
+
+            log.style.display = 'block';
+            log.innerHTML = vibes.slice(0, 10).map(vibe => `
+                <div class="vibe-entry">
+                    <strong>${vibe.vibe} ${vibe.project}</strong><br>
+                    ${vibe.description}<br>
+                    <small style="color: #999;">${vibe.timestamp}</small>
+                </div>
+            `).join('');
+        }
+
+        // Project Idea Generator
+        const projectIdeas = {
+            energized: [
+                { name: "Real-time Chat App", desc: "Build a WebSocket chat with rooms and emojis" },
+                { name: "Multiplayer Game", desc: "Simple browser game like Snake or Pong" },
+                { name: "Live Dashboard", desc: "Real-time data visualization with charts" }
+            ],
+            chill: [
+                { name: "Markdown Blog", desc: "Static site generator from .md files" },
+                { name: "Pomodoro Timer", desc: "Focus timer with ambient sounds" },
+                { name: "Recipe Organizer", desc: "Save and search your favorite recipes" }
+            ],
+            creative: [
+                { name: "ASCII Art Generator", desc: "Turn images into ASCII art" },
+                { name: "Random Color Palette", desc: "Generate beautiful color schemes" },
+                { name: "Generative Art", desc: "Canvas-based artwork that changes" }
+            ],
+            practical: [
+                { name: "File Organizer", desc: "Auto-sort downloads by type" },
+                { name: "Expense Tracker", desc: "Log spending and see totals" },
+                { name: "Link Shortener", desc: "Create and track short URLs" }
+            ]
+        };
+
+        function vibeCheck() {
+            const vibes = Object.keys(projectIdeas);
+            const randomVibe = vibes[Math.floor(Math.random() * vibes.length)];
+            const projects = projectIdeas[randomVibe];
+            const project = projects[Math.floor(Math.random() * projects.length)];
+
+            const output = document.getElementById('vibe-output');
+            output.innerHTML = `
+                <div style="font-size: 1.2em; margin-bottom: 10px;">
+                    <strong>Your vibe: ${randomVibe}</strong> ✨
+                </div>
+                <div style="font-size: 1.4em; color: #667eea; margin-bottom: 10px;">
+                    <strong>${project.name}</strong>
+                </div>
+                <div style="color: #666;">
+                    ${project.desc}
+                </div>
+                <div style="margin-top: 15px; padding-top: 15px; border-top: 2px solid #f0f0f0; color: #999;">
+                    <strong>Quick start:</strong> Create a new folder, add an index file, and start coding. Don't overthink it!
+                </div>
+            `;
+            output.classList.add('show');
+        }
+
+        // Load vibes on page load
+        displayVibes();
+    </script>
+</body>
+</html>

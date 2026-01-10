@@ -2,6 +2,24 @@
 
 > Code anything. Build everything. Stay in flow.
 
+## 🚀 Try It Now (Web Demo)
+
+**On mobile or want to try examples in your browser?**
+
+Open `demo.html` in your browser or run a simple server:
+
+```bash
+# Python
+python3 -m http.server 8000
+
+# Node.js
+npx http-server
+
+# Or just open demo.html in Codespaces
+```
+
+Then visit the URL to try all the examples interactively!
+
 ## What is Vibe Coding?
 
 Vibe coding is a creative approach to programming where you:
