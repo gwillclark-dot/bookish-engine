@@ -1,0 +1,21 @@
+{
+  "scenes": [
+    {
+      "id": "default",
+      "name": "Deep Focus",
+      "background": {
+        "poster": "/video/deep-focus.jpg",
+        "sources": [
+          { "src": "/video/deep-focus.webm", "type": "video/webm" },
+          { "src": "/video/deep-focus.mp4", "type": "video/mp4" }
+        ]
+      },
+      "tracks": [
+        { "id": "brown", "name": "Brown Noise", "src": "/audio/brown.mp3", "defaultVolume": 0.35 },
+        { "id": "rain", "name": "Rain", "src": "/audio/rain.mp3", "defaultVolume": 0.20 },
+        { "id": "fan", "name": "Fan", "src": "/audio/fan.mp3", "defaultVolume": 0.15 },
+        { "id": "vinyl", "name": "Vinyl Crackle", "src": "/audio/vinyl.mp3", "defaultVolume": 0.08 }
+      ]
+    }
+  ]
+}
