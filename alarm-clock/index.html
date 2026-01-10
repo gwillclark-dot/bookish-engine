@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="theme-color" content="#1a1a2e">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+    <title>Bonk Alarm</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="manifest" href="manifest.json">
+</head>
+<body>
+    <div id="app">
+        <!-- Main Clock Display -->
+        <div id="clock-screen" class="screen active">
+            <header>
+                <h1>Bonk Alarm</h1>
+            </header>
+
+            <div id="current-time"></div>
+
+            <div id="alarms-list">
+                <h2>Alarms</h2>
+                <div id="alarms-container"></div>
+            </div>
+
+            <button id="add-alarm-btn" class="primary-btn">+ Add Alarm</button>
+        </div>
+
+        <!-- Set Alarm Screen -->
+        <div id="set-alarm-screen" class="screen">
+            <header>
+                <button id="cancel-alarm-btn" class="text-btn">Cancel</button>
+                <h2>Set Alarm</h2>
+                <button id="save-alarm-btn" class="text-btn">Save</button>
+            </header>
+
+            <div id="time-picker">
+                <div class="time-input-group">
+                    <input type="number" id="hour-input" min="1" max="12" value="7" />
+                    <span class="separator">:</span>
+                    <input type="number" id="minute-input" min="0" max="59" value="00" />
+                    <div class="period-toggle">
+                        <button id="am-btn" class="period-btn active">AM</button>
+                        <button id="pm-btn" class="period-btn">PM</button>
+                    </div>
+                </div>
+            </div>
+
+            <div id="alarm-label-input">
+                <input type="text" id="label-input" placeholder="Alarm label (optional)" maxlength="30" />
+            </div>
+        </div>
+
+        <!-- Animation Screen (Full Screen) -->
+        <div id="animation-screen" class="screen">
+            <canvas id="animation-canvas"></canvas>
+            <div id="dismiss-hint">
+                <span>Tap repeatedly or shake to dismiss</span>
+                <div id="dismiss-progress"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="audio.js"></script>
+    <script src="animation.js"></script>
+    <script src="app.js"></script>
+</body>
+</html>

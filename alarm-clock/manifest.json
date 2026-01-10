@@ -1,0 +1,17 @@
+{
+    "name": "Bonk Alarm",
+    "short_name": "Bonk Alarm",
+    "description": "Minimalist alarm clock with a twist - the clock attacks you!",
+    "start_url": "/",
+    "display": "standalone",
+    "background_color": "#0d0d1a",
+    "theme_color": "#0d0d1a",
+    "orientation": "portrait",
+    "icons": [
+        {
+            "src": "data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='45' fill='%231a1a2e' stroke='%23f0f0f5' stroke-width='3'/><circle cx='35' cy='25' r='12' fill='none' stroke='%23f0f0f5' stroke-width='2'/><circle cx='65' cy='25' r='12' fill='none' stroke='%23f0f0f5' stroke-width='2'/><circle cx='50' cy='18' r='5' fill='%23f0f0f5'/><line x1='50' y1='50' x2='50' y2='30' stroke='%23f0f0f5' stroke-width='3'/><line x1='50' y1='50' x2='65' y2='45' stroke='%23f0f0f5' stroke-width='2'/></svg>",
+            "sizes": "192x192",
+            "type": "image/svg+xml"
+        }
+    ]
+}

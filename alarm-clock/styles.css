@@ -1,0 +1,428 @@
+/* Bonk Alarm - Minimalist Dark Theme */
+
+:root {
+    --bg-primary: #0d0d1a;
+    --bg-secondary: #1a1a2e;
+    --bg-tertiary: #252542;
+    --text-primary: #f0f0f5;
+    --text-secondary: #8888aa;
+    --accent: #6366f1;
+    --accent-glow: rgba(99, 102, 241, 0.3);
+    --danger: #ef4444;
+    --success: #22c55e;
+    --border: #333355;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html, body {
+    height: 100%;
+    overflow: hidden;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+    background: var(--bg-primary);
+    color: var(--text-primary);
+    -webkit-tap-highlight-color: transparent;
+    user-select: none;
+}
+
+#app {
+    height: 100%;
+    width: 100%;
+    max-width: 500px;
+    margin: 0 auto;
+    position: relative;
+}
+
+/* Screens */
+.screen {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    display: none;
+    flex-direction: column;
+    padding: 20px;
+    padding-top: env(safe-area-inset-top, 20px);
+    padding-bottom: env(safe-area-inset-bottom, 20px);
+}
+
+.screen.active {
+    display: flex;
+}
+
+/* Headers */
+header {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin-bottom: 20px;
+}
+
+header h1, header h2 {
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+header h1 {
+    font-size: 1.5rem;
+}
+
+header h2 {
+    font-size: 1.2rem;
+    flex: 1;
+    text-align: center;
+}
+
+/* Current Time Display */
+#current-time {
+    font-size: 5rem;
+    font-weight: 200;
+    text-align: center;
+    letter-spacing: -4px;
+    padding: 40px 0;
+    color: var(--text-primary);
+}
+
+#current-time .seconds {
+    font-size: 2rem;
+    color: var(--text-secondary);
+    vertical-align: super;
+}
+
+/* Alarms List */
+#alarms-list {
+    flex: 1;
+    overflow-y: auto;
+    padding: 10px 0;
+}
+
+#alarms-list h2 {
+    font-size: 0.9rem;
+    color: var(--text-secondary);
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    margin-bottom: 15px;
+}
+
+#alarms-container {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+}
+
+.alarm-item {
+    background: var(--bg-secondary);
+    border-radius: 16px;
+    padding: 16px 20px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    border: 1px solid var(--border);
+    transition: all 0.2s ease;
+}
+
+.alarm-item:active {
+    transform: scale(0.98);
+}
+
+.alarm-info {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.alarm-time {
+    font-size: 2rem;
+    font-weight: 300;
+    letter-spacing: -1px;
+}
+
+.alarm-time .period {
+    font-size: 1rem;
+    color: var(--text-secondary);
+    margin-left: 4px;
+}
+
+.alarm-label {
+    font-size: 0.85rem;
+    color: var(--text-secondary);
+}
+
+.alarm-controls {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    width: 50px;
+    height: 30px;
+    background: var(--bg-tertiary);
+    border-radius: 15px;
+    position: relative;
+    cursor: pointer;
+    transition: background 0.3s ease;
+}
+
+.toggle-switch.active {
+    background: var(--accent);
+}
+
+.toggle-switch::after {
+    content: '';
+    position: absolute;
+    width: 24px;
+    height: 24px;
+    background: var(--text-primary);
+    border-radius: 50%;
+    top: 3px;
+    left: 3px;
+    transition: transform 0.3s ease;
+}
+
+.toggle-switch.active::after {
+    transform: translateX(20px);
+}
+
+.delete-btn {
+    width: 32px;
+    height: 32px;
+    border: none;
+    background: transparent;
+    color: var(--danger);
+    font-size: 1.2rem;
+    cursor: pointer;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+}
+
+.delete-btn:hover {
+    opacity: 1;
+}
+
+/* Buttons */
+.primary-btn {
+    background: var(--accent);
+    color: white;
+    border: none;
+    padding: 16px 32px;
+    font-size: 1.1rem;
+    font-weight: 500;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    box-shadow: 0 4px 20px var(--accent-glow);
+}
+
+.primary-btn:active {
+    transform: scale(0.96);
+}
+
+.text-btn {
+    background: none;
+    border: none;
+    color: var(--accent);
+    font-size: 1rem;
+    font-weight: 500;
+    cursor: pointer;
+    padding: 8px;
+}
+
+/* Time Picker */
+#time-picker {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.time-input-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.time-input-group input {
+    width: 100px;
+    height: 120px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 16px;
+    color: var(--text-primary);
+    font-size: 3.5rem;
+    font-weight: 300;
+    text-align: center;
+    outline: none;
+    transition: border-color 0.2s;
+    -moz-appearance: textfield;
+}
+
+.time-input-group input::-webkit-outer-spin-button,
+.time-input-group input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+.time-input-group input:focus {
+    border-color: var(--accent);
+}
+
+.separator {
+    font-size: 3rem;
+    color: var(--text-secondary);
+}
+
+.period-toggle {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-left: 12px;
+}
+
+.period-btn {
+    width: 60px;
+    height: 50px;
+    background: var(--bg-secondary);
+    border: 2px solid var(--border);
+    border-radius: 10px;
+    color: var(--text-secondary);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.period-btn.active {
+    background: var(--accent);
+    border-color: var(--accent);
+    color: white;
+}
+
+/* Label Input */
+#alarm-label-input {
+    padding: 20px 0;
+}
+
+#alarm-label-input input {
+    width: 100%;
+    background: var(--bg-secondary);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    padding: 16px;
+    color: var(--text-primary);
+    font-size: 1rem;
+    outline: none;
+}
+
+#alarm-label-input input::placeholder {
+    color: var(--text-secondary);
+}
+
+#alarm-label-input input:focus {
+    border-color: var(--accent);
+}
+
+/* Animation Screen */
+#animation-screen {
+    padding: 0;
+    background: var(--bg-primary);
+}
+
+#animation-canvas {
+    width: 100%;
+    height: 100%;
+}
+
+#dismiss-hint {
+    position: absolute;
+    bottom: 60px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: 0.9rem;
+}
+
+#dismiss-progress {
+    width: 200px;
+    height: 4px;
+    background: var(--bg-tertiary);
+    border-radius: 2px;
+    margin-top: 12px;
+    overflow: hidden;
+}
+
+#dismiss-progress::after {
+    content: '';
+    display: block;
+    width: var(--progress, 0%);
+    height: 100%;
+    background: var(--accent);
+    border-radius: 2px;
+    transition: width 0.1s ease;
+}
+
+/* Empty State */
+.empty-state {
+    text-align: center;
+    padding: 40px 20px;
+    color: var(--text-secondary);
+}
+
+.empty-state-icon {
+    font-size: 4rem;
+    margin-bottom: 16px;
+    opacity: 0.5;
+}
+
+/* Responsive */
+@media (max-width: 380px) {
+    #current-time {
+        font-size: 4rem;
+    }
+
+    .time-input-group input {
+        width: 80px;
+        height: 100px;
+        font-size: 2.8rem;
+    }
+
+    .alarm-time {
+        font-size: 1.6rem;
+    }
+}
+
+/* Animation for screen transitions */
+.screen {
+    animation: fadeIn 0.3s ease;
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* Shake animation indicator */
+@keyframes shake {
+    0%, 100% { transform: translateX(0); }
+    25% { transform: translateX(-5px); }
+    75% { transform: translateX(5px); }
+}
+
+.shaking {
+    animation: shake 0.1s ease-in-out;
+}
