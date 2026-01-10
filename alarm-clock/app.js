@@ -173,11 +173,10 @@ class BonkAlarmApp {
         this.showScreen('animation-screen');
 
         // Initialize and start animation
-        const canvas = document.getElementById('animation-canvas');
+        const container = document.getElementById('animation-container');
         if (!alarmAnimation) {
-            alarmAnimation = new AlarmAnimation(canvas);
+            alarmAnimation = new AlarmAnimation(container);
         }
-        alarmAnimation.resize();
         alarmAnimation.start();
 
         // Start alarm sound
