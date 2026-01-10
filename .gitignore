@@ -1,0 +1,42 @@
+# Vibe Coding Guide - .gitignore
+
+# Node
+node_modules/
+npm-debug.log
+yarn-error.log
+package-lock.json
+yarn.lock
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+.venv/
+venv/
+*.egg-info/
+
+# IDEs
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Build outputs
+dist/
+build/
+*.min.js
+*.min.css
+
+# Personal vibe tracker data (if you use the example)
+.vibe-tracker.json
+
+# Keep it clean, keep it simple
+# This is vibe coding - we don't need much!

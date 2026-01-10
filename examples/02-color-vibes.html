@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Color Vibes - Random Palette Generator</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    body {
+      font-family: 'Monaco', 'Courier New', monospace;
+      background: #1a1a1a;
+      color: #fff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      padding: 20px;
+    }
+
+    .container {
+      text-align: center;
+      max-width: 1200px;
+      width: 100%;
+    }
+
+    h1 {
+      margin-bottom: 40px;
+      font-size: 3rem;
+    }
+
+    .palette {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 20px;
+      margin-bottom: 40px;
+    }
+
+    .color-box {
+      aspect-ratio: 1;
+      border-radius: 12px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      cursor: pointer;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 6px rgba(0,0,0,0.3);
+    }
+
+    .color-box:hover {
+      transform: scale(1.05);
+    }
+
+    .color-code {
+      background: rgba(0,0,0,0.3);
+      padding: 8px 16px;
+      border-radius: 6px;
+      font-size: 0.9rem;
+      margin-top: 10px;
+    }
+
+    button {
+      background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+      color: white;
+      border: none;
+      padding: 16px 48px;
+      font-size: 1.2rem;
+      border-radius: 50px;
+      cursor: pointer;
+      font-family: inherit;
+      transition: transform 0.2s;
+      box-shadow: 0 4px 12px rgba(102, 126, 234, 0.4);
+    }
+
+    button:hover {
+      transform: scale(1.05);
+    }
+
+    .tip {
+      margin-top: 20px;
+      opacity: 0.6;
+      font-size: 0.9rem;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1>🎨 Color Vibes</h1>
+    <div class="palette" id="palette"></div>
+    <button onclick="generatePalette()">Generate New Vibes</button>
+    <p class="tip">Click any color to copy its hex code</p>
+  </div>
+
+  <script>
+    /**
+     * VIBE CODING BREAKDOWN:
+     *
+     * Started with: "I want random colors on screen"
+     * First version: Just 5 divs with random colors
+     * Then added: Hex codes, copy-to-clipboard, better styling
+     * Could add next: Save palettes, export, color theory rules
+     *
+     * Total time: ~30 mins including styling
+     * Lines of code: Who cares, it works!
+     */
+
+    function randomHex() {
+      return '#' + Math.floor(Math.random()*16777215).toString(16).padStart(6, '0');
+    }
+
+    function generatePalette() {
+      const palette = document.getElementById('palette');
+      palette.innerHTML = '';
+
+      const numColors = 5;
+
+      for (let i = 0; i < numColors; i++) {
+        const color = randomHex();
+        const box = document.createElement('div');
+        box.className = 'color-box';
+        box.style.backgroundColor = color;
+
+        const code = document.createElement('div');
+        code.className = 'color-code';
+        code.textContent = color;
+
+        box.appendChild(code);
+        box.onclick = () => copyColor(color);
+
+        palette.appendChild(box);
+      }
+    }
+
+    function copyColor(hex) {
+      navigator.clipboard.writeText(hex);
+      alert(`Copied ${hex} to clipboard! 🎨`);
+    }
+
+    // Generate on load
+    generatePalette();
+
+    // PRO TIP: Press spacebar to generate new palette
+    document.addEventListener('keypress', (e) => {
+      if (e.key === ' ') {
+        e.preventDefault();
+        generatePalette();
+      }
+    });
+  </script>
+</body>
+</html>
+
+<!--
+VIBE CODING NOTES:
+- Single file = easy to share, no build step
+- Inline CSS/JS = not "best practice" but who cares for a small project
+- Could refactor later into components if it grows
+- But it won't grow. And that's okay.
+- Ship it, share it, move on to the next vibe
+-->
