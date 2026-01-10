@@ -43,6 +43,12 @@ class AlarmAnimation {
     createScene() {
         // Definitions for reusable elements
         const defs = document.createElementNS('http://www.w3.org/2000/svg', 'defs');
+
+        // Circular clip path for the head photo
+        const clipPath = this.createEl('clipPath', { id: 'head-clip' });
+        clipPath.appendChild(this.createEl('circle', { cx: 100, cy: 280, r: 28 }));
+        defs.appendChild(clipPath);
+
         this.svg.appendChild(defs);
 
         // Create all scene elements
@@ -106,58 +112,57 @@ class AlarmAnimation {
     createPerson() {
         const person = this.createEl('g', { id: 'person' });
 
-        // Head
-        const head = this.createEl('circle', {
-            id: 'head', cx: 100, cy: 280, r: 25,
+        // Head - photo clipped to circle
+        const headImage = this.createEl('image', {
+            id: 'head-image',
+            x: 72, y: 250,
+            width: 56, height: 70,
+            href: 'face.jpg',
+            'clip-path': 'url(#head-clip)',
+            preserveAspectRatio: 'xMidYMid slice'
+        });
+        person.appendChild(headImage);
+
+        // Circle border around head
+        const headBorder = this.createEl('circle', {
+            id: 'head-border', cx: 100, cy: 280, r: 28,
             fill: 'none', stroke: '#fff', 'stroke-width': 3
         });
-        person.appendChild(head);
+        person.appendChild(headBorder);
 
-        // Sleeping eyes (closed - curved lines)
-        const leftEyeClosed = this.createEl('path', {
-            id: 'left-eye-closed',
-            d: 'M 88 278 Q 92 282, 96 278',
-            fill: 'none', stroke: '#fff', 'stroke-width': 2
-        });
-        person.appendChild(leftEyeClosed);
+        // Sleeping indicator - Zzz overlay on face (hidden during wake)
+        const sleepOverlay = this.createEl('g', { id: 'sleep-overlay', opacity: 0.7 });
+        sleepOverlay.appendChild(this.createEl('text', {
+            x: 95, y: 275, fill: '#fff', 'font-size': 12, 'font-family': 'sans-serif'
+        })).textContent = '-';
+        sleepOverlay.appendChild(this.createEl('text', {
+            x: 105, y: 275, fill: '#fff', 'font-size': 12, 'font-family': 'sans-serif'
+        })).textContent = '-';
+        person.appendChild(sleepOverlay);
+        this.elements.sleepOverlay = sleepOverlay;
 
-        const rightEyeClosed = this.createEl('path', {
-            id: 'right-eye-closed',
-            d: 'M 104 278 Q 108 282, 112 278',
-            fill: 'none', stroke: '#fff', 'stroke-width': 2
-        });
-        person.appendChild(rightEyeClosed);
+        // Shock effect overlay - cartoon eyes that pop up on impact (hidden initially)
+        const shockOverlay = this.createEl('g', { id: 'shock-overlay', opacity: 0 });
 
-        // Awake eyes (open - circles) - hidden initially
-        const leftEyeOpen = this.createEl('circle', {
-            id: 'left-eye-open',
-            cx: 92, cy: 278, r: 4,
-            fill: '#fff', stroke: 'none', opacity: 0
-        });
-        person.appendChild(leftEyeOpen);
+        // Big shocked cartoon eyes
+        shockOverlay.appendChild(this.createEl('ellipse', {
+            cx: 90, cy: 273, rx: 8, ry: 10,
+            fill: '#fff', stroke: '#000', 'stroke-width': 2
+        }));
+        shockOverlay.appendChild(this.createEl('ellipse', {
+            cx: 110, cy: 273, rx: 8, ry: 10,
+            fill: '#fff', stroke: '#000', 'stroke-width': 2
+        }));
+        // Pupils
+        shockOverlay.appendChild(this.createEl('circle', {
+            id: 'left-pupil', cx: 90, cy: 275, r: 4, fill: '#000'
+        }));
+        shockOverlay.appendChild(this.createEl('circle', {
+            id: 'right-pupil', cx: 110, cy: 275, r: 4, fill: '#000'
+        }));
 
-        const rightEyeOpen = this.createEl('circle', {
-            id: 'right-eye-open',
-            cx: 108, cy: 278, r: 4,
-            fill: '#fff', stroke: 'none', opacity: 0
-        });
-        person.appendChild(rightEyeOpen);
-
-        // Sleeping mouth (slight smile)
-        const mouthSleeping = this.createEl('path', {
-            id: 'mouth-sleeping',
-            d: 'M 94 290 Q 100 294, 106 290',
-            fill: 'none', stroke: '#fff', 'stroke-width': 2
-        });
-        person.appendChild(mouthSleeping);
-
-        // Shocked mouth (O shape) - hidden initially
-        const mouthShocked = this.createEl('circle', {
-            id: 'mouth-shocked',
-            cx: 100, cy: 292, r: 6,
-            fill: 'none', stroke: '#fff', 'stroke-width': 2, opacity: 0
-        });
-        person.appendChild(mouthShocked);
+        person.appendChild(shockOverlay);
+        this.elements.shockOverlay = shockOverlay;
 
         // Body under blanket (just a lump shape)
         person.appendChild(this.createEl('path', {
@@ -168,14 +173,14 @@ class AlarmAnimation {
         // Arms - hidden initially, shown when waking
         const leftArm = this.createEl('path', {
             id: 'left-arm',
-            d: 'M 85 300 L 60 260',
+            d: 'M 85 305 L 55 270 L 45 250',
             fill: 'none', stroke: '#fff', 'stroke-width': 3, opacity: 0
         });
         person.appendChild(leftArm);
 
         const rightArm = this.createEl('path', {
             id: 'right-arm',
-            d: 'M 115 300 L 140 260',
+            d: 'M 115 305 L 145 270 L 155 250',
             fill: 'none', stroke: '#fff', 'stroke-width': 3, opacity: 0
         });
         person.appendChild(rightArm);
@@ -395,13 +400,9 @@ class AlarmAnimation {
         this.elements.clock.setAttribute('transform',
             `translate(${this.clockStartX}, ${this.clockStartY})`);
 
-        // Reset person
-        this.svg.querySelector('#left-eye-closed').setAttribute('opacity', 1);
-        this.svg.querySelector('#right-eye-closed').setAttribute('opacity', 1);
-        this.svg.querySelector('#left-eye-open').setAttribute('opacity', 0);
-        this.svg.querySelector('#right-eye-open').setAttribute('opacity', 0);
-        this.svg.querySelector('#mouth-sleeping').setAttribute('opacity', 1);
-        this.svg.querySelector('#mouth-shocked').setAttribute('opacity', 0);
+        // Reset person overlays
+        this.elements.sleepOverlay.setAttribute('opacity', 0.7);
+        this.elements.shockOverlay.setAttribute('opacity', 0);
         this.svg.querySelector('#left-arm').setAttribute('opacity', 0);
         this.svg.querySelector('#right-arm').setAttribute('opacity', 0);
 
@@ -570,13 +571,9 @@ class AlarmAnimation {
             this.elements.stars.setAttribute('transform', `translate(${starShake}, 0)`);
         }
 
-        // Wake up the person
-        this.svg.querySelector('#left-eye-closed').setAttribute('opacity', 0);
-        this.svg.querySelector('#right-eye-closed').setAttribute('opacity', 0);
-        this.svg.querySelector('#left-eye-open').setAttribute('opacity', 1);
-        this.svg.querySelector('#right-eye-open').setAttribute('opacity', 1);
-        this.svg.querySelector('#mouth-sleeping').setAttribute('opacity', 0);
-        this.svg.querySelector('#mouth-shocked').setAttribute('opacity', 1);
+        // Wake up the person - hide sleep overlay, show shock overlay
+        this.elements.sleepOverlay.setAttribute('opacity', 0);
+        this.elements.shockOverlay.setAttribute('opacity', 1);
     }
 
     updateWaking(elapsed) {
@@ -596,12 +593,12 @@ class AlarmAnimation {
         this.elements.clock.setAttribute('transform',
             `translate(${x}, ${y}) rotate(${900 + elapsed / 5})`);
 
-        // Blink effect
+        // Blink effect on cartoon eyes
         if (elapsed > 1000) {
             const blink = Math.floor(elapsed / 200) % 2;
-            const eyeSize = blink ? 4 : 2;
-            this.svg.querySelector('#left-eye-open').setAttribute('r', eyeSize);
-            this.svg.querySelector('#right-eye-open').setAttribute('r', eyeSize);
+            const pupilSize = blink ? 4 : 2;
+            this.svg.querySelector('#left-pupil').setAttribute('r', pupilSize);
+            this.svg.querySelector('#right-pupil').setAttribute('r', pupilSize);
         }
     }
 }
