@@ -38,5 +38,14 @@ build/
 # Personal vibe tracker data (if you use the example)
 .vibe-tracker.json
 
+# Environment files (contain API keys!)
+.env
+.env.local
+.env.*.local
+
+# Garrett research agent
+garrett/.research_history.json
+garrett/*.log
+
 # Keep it clean, keep it simple
 # This is vibe coding - we don't need much!

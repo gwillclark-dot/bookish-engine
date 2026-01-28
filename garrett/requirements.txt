@@ -1,0 +1,11 @@
+# Garrett Research Agent Dependencies
+
+# Core
+python-dotenv>=1.0.0
+requests>=2.31.0
+
+# Anthropic Claude API
+anthropic>=0.39.0
+
+# Optional: If you want to use the official Notion SDK instead of requests
+# notion-client>=2.0.0
