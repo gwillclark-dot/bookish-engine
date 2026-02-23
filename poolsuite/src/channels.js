@@ -1,0 +1,51 @@
+// Each channel has a YouTube playlist ID to stream from
+export const CHANNELS = [
+  {
+    id: 'poolside',
+    name: 'POOLSIDE',
+    vibe: 'Yacht rock & summer funk',
+    emoji: '🌊',
+    playlistId: 'PLw-VjHDlEOgvtnnnqWlTqByAtC7tXBg6D',
+    color: '#4A9BAF',
+  },
+  {
+    id: 'sunset',
+    name: 'GOLDEN HOUR',
+    vibe: 'Soft soul & slow jams',
+    emoji: '🌅',
+    playlistId: 'PLFgquLnL59alCl_2TQvOiD5Vgm1hCaGSK',
+    color: '#E8735A',
+  },
+  {
+    id: 'tropical',
+    name: 'TROPICALIA',
+    vibe: 'Bossa nova & samba',
+    emoji: '🌴',
+    playlistId: 'PLw-VjHDlEOgv_XVS0alUbYQqb27uFhzVY',
+    color: '#4CAF50',
+  },
+  {
+    id: 'disco',
+    name: 'NIGHT FEVER',
+    vibe: 'Classic disco & boogie',
+    emoji: '🪩',
+    playlistId: 'PLw-VjHDlEOgvsBi8CQkivPHnIvuVFpPPy',
+    color: '#C9933A',
+  },
+  {
+    id: 'lofi',
+    name: 'LAZY AFTERNOON',
+    vibe: 'Lo-fi beats & chill',
+    emoji: '🍹',
+    playlistId: 'PLofht4DDEFSQdBkfVi5bHVMQWjrAkVXQr',
+    color: '#9B59B6',
+  },
+  {
+    id: 'synthwave',
+    name: 'NEON COAST',
+    vibe: 'Synthwave & retrowave',
+    emoji: '🌆',
+    playlistId: 'PLw-VjHDlEOgv4HfealE93bXpHMYw1mITa',
+    color: '#E91E63',
+  },
+];
