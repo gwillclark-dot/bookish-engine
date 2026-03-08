@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>George Clark — Resume</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@700&display=swap" rel="stylesheet" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --ink: #0f1923;
+      --accent: #1a56db;
+      --muted: #64748b;
+      --rule: #e2e8f0;
+      --bg: #ffffff;
+      --sidebar: #f8fafc;
+      --tag-bg: #eff6ff;
+      --tag-color: #1d4ed8;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background: #e8ecf0;
+      min-height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: flex-start;
+      padding: 40px 20px;
+      color: var(--ink);
+    }
+
+    /* ── Page shell ─────────────────────────────────── */
+    .page {
+      background: var(--bg);
+      width: 860px;
+      max-width: 100%;
+      box-shadow: 0 20px 60px rgba(0,0,0,.15), 0 4px 16px rgba(0,0,0,.08);
+      border-radius: 4px;
+      overflow: hidden;
+      display: grid;
+      grid-template-columns: 260px 1fr;
+    }
+
+    /* ── Left sidebar ───────────────────────────────── */
+    .sidebar {
+      background: var(--sidebar);
+      border-right: 1px solid var(--rule);
+      padding: 48px 28px 48px 32px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    .sidebar-section h3 {
+      font-size: 9px;
+      font-weight: 700;
+      letter-spacing: .14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 14px;
+    }
+
+    /* Contact */
+    .contact-list { list-style: none; display: flex; flex-direction: column; gap: 8px; }
+    .contact-list li {
+      font-size: 12.5px;
+      color: var(--muted);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+    .contact-list li svg { flex-shrink: 0; margin-top: 2px; }
+    .contact-list a { color: var(--accent); text-decoration: none; }
+    .contact-list a:hover { text-decoration: underline; }
+
+    /* Skills */
+    .skill-group { margin-bottom: 16px; }
+    .skill-group-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+      color: var(--ink);
+      margin-bottom: 8px;
+    }
+    .skill-tags { display: flex; flex-wrap: wrap; gap: 5px; }
+    .tag {
+      background: var(--tag-bg);
+      color: var(--tag-color);
+      font-size: 10.5px;
+      font-weight: 500;
+      padding: 3px 8px;
+      border-radius: 4px;
+      line-height: 1.6;
+    }
+    .tag.neutral {
+      background: #f1f5f9;
+      color: #475569;
+    }
+
+    /* Education */
+    .edu-school { font-size: 13px; font-weight: 600; color: var(--ink); }
+    .edu-degree { font-size: 12px; color: var(--muted); margin-top: 3px; line-height: 1.5; }
+    .edu-years  { font-size: 11px; color: #94a3b8; margin-top: 4px; }
+
+    /* ── Main content ───────────────────────────────── */
+    .main {
+      padding: 48px 44px 52px 44px;
+      display: flex;
+      flex-direction: column;
+      gap: 36px;
+    }
+
+    /* Header */
+    .header { border-bottom: 2px solid var(--accent); padding-bottom: 22px; }
+    .header-name {
+      font-family: 'Playfair Display', Georgia, serif;
+      font-size: 38px;
+      line-height: 1;
+      color: var(--ink);
+      letter-spacing: -.5px;
+    }
+    .header-title {
+      margin-top: 7px;
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--accent);
+      letter-spacing: .04em;
+      text-transform: uppercase;
+    }
+
+    /* Section heading */
+    .section-title {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .16em;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 18px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .section-title::after {
+      content: '';
+      flex: 1;
+      height: 1px;
+      background: var(--rule);
+    }
+
+    /* Summary */
+    .summary-text {
+      font-size: 13.5px;
+      line-height: 1.75;
+      color: #334155;
+    }
+
+    /* Work experience */
+    .job { display: flex; flex-direction: column; gap: 10px; }
+    .job + .job { margin-top: 22px; padding-top: 22px; border-top: 1px solid var(--rule); }
+
+    .job-header { display: flex; justify-content: space-between; align-items: flex-start; gap: 12px; }
+
+    .job-title-block {}
+    .job-title {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--ink);
+      line-height: 1.3;
+    }
+    .job-company {
+      font-size: 12.5px;
+      font-weight: 500;
+      color: var(--accent);
+      margin-top: 2px;
+    }
+
+    .job-meta {
+      text-align: right;
+      flex-shrink: 0;
+    }
+    .job-dates {
+      font-size: 11.5px;
+      font-weight: 600;
+      color: var(--muted);
+      white-space: nowrap;
+    }
+    .job-location {
+      font-size: 11px;
+      color: #94a3b8;
+      margin-top: 2px;
+    }
+
+    .job-bullets { list-style: none; display: flex; flex-direction: column; gap: 6px; }
+    .job-bullets li {
+      font-size: 13px;
+      line-height: 1.65;
+      color: #334155;
+      padding-left: 16px;
+      position: relative;
+    }
+    .job-bullets li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 9px;
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      opacity: .5;
+    }
+
+    /* Print */
+    @media print {
+      body { background: none; padding: 0; }
+      .page { box-shadow: none; width: 100%; }
+    }
+
+    @media (max-width: 680px) {
+      .page { grid-template-columns: 1fr; }
+      .sidebar { border-right: none; border-bottom: 1px solid var(--rule); }
+    }
+  </style>
+</head>
+<body>
+<div class="page">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="sidebar-section">
+      <h3>Contact</h3>
+      <ul class="contact-list">
+        <li>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12 19.79 19.79 0 0 1 1.61 3.44 2 2 0 0 1 3.6 1.27h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 8.91a16 16 0 0 0 6 6l.92-.92a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 21.73 17z"/></svg>
+          720 232 5844
+        </li>
+        <li>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"/></svg>
+          <a href="mailto:gwillclark@gmail.com">gwillclark@gmail.com</a>
+        </li>
+        <li>
+          <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"/><circle cx="12" cy="10" r="3"/></svg>
+          New York, NY
+        </li>
+      </ul>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>Core Skills</h3>
+      <div class="skill-group">
+        <div class="skill-group-label">Licensing & Rights</div>
+        <div class="skill-tags">
+          <span class="tag">Copyright Law</span>
+          <span class="tag">Music Publishing</span>
+          <span class="tag">Music Distribution</span>
+          <span class="tag">Contract Drafting</span>
+        </div>
+      </div>
+      <div class="skill-group" style="margin-top:14px">
+        <div class="skill-group-label">Business</div>
+        <div class="skill-tags">
+          <span class="tag">Revenue Analysis</span>
+          <span class="tag">Negotiation</span>
+          <span class="tag">Strategic Planning</span>
+          <span class="tag">Team Management</span>
+        </div>
+      </div>
+      <div class="skill-group" style="margin-top:14px">
+        <div class="skill-group-label">Tools & Tech</div>
+        <div class="skill-tags">
+          <span class="tag neutral">Airtable</span>
+          <span class="tag neutral">Salesforce</span>
+          <span class="tag neutral">HubSpot</span>
+          <span class="tag neutral">Zapier</span>
+          <span class="tag neutral">DuckDB</span>
+          <span class="tag neutral">SQL</span>
+          <span class="tag neutral">AI Tools</span>
+        </div>
+      </div>
+      <div class="skill-group" style="margin-top:14px">
+        <div class="skill-group-label">Soft Skills</div>
+        <div class="skill-tags">
+          <span class="tag neutral">Presentation</span>
+          <span class="tag neutral">Public Speaking</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="sidebar-section">
+      <h3>Education</h3>
+      <div>
+        <div class="edu-school">Columbia College Chicago</div>
+        <div class="edu-degree">BA · Arts, Entertainment &amp;<br>Media Management</div>
+        <div class="edu-years">2012 – 2016</div>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <!-- Header -->
+    <header class="header">
+      <div class="header-name">George Clark</div>
+      <div class="header-title">Business Development &amp; Licensing</div>
+    </header>
+
+    <!-- Summary -->
+    <section>
+      <div class="section-title">Summary</div>
+      <p class="summary-text">
+        Strategic licensing and partnerships director with 7+ years of experience across music publishing administration, partner management, and commercial licensing. Adept at navigating complex rights frameworks and leading high-value negotiations with top-tier DSPs. Began in artist-facing sales and client education at Songtrust, scaling inbound strategies to empower independent rights holders. Progressed into cross-functional licensing at Downtown Music Holdings, managing direct and third-party licensing agreements and aligning rights management across publishing, sound recording, and sync teams. Passionate about the intersection of copyright, technology, and global strategy.
+      </p>
+    </section>
+
+    <!-- Experience -->
+    <section>
+      <div class="section-title">Work Experience</div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title-block">
+            <div class="job-title">Associate Director, Licensing &amp; Partnerships</div>
+            <div class="job-company">Downtown Music Holdings</div>
+          </div>
+          <div class="job-meta">
+            <div class="job-dates">Jan 2025 – Present</div>
+            <div class="job-location">New York, NY</div>
+          </div>
+        </div>
+        <ul class="job-bullets">
+          <li>Lead commercial licensing strategy across publishing, sound recording, and fully-cleared / 200% catalogs.</li>
+          <li>Negotiate direct global agreements with DSPs and third-party partners.</li>
+          <li>Align revenue objectives across internal rights-holder divisions.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title-block">
+            <div class="job-title">Manager, Digital Revenue &amp; Licensing</div>
+            <div class="job-company">Downtown Music Holdings</div>
+          </div>
+          <div class="job-meta">
+            <div class="job-dates">Jan 2024 – Jan 2025</div>
+            <div class="job-location">Miami, FL</div>
+          </div>
+        </div>
+        <ul class="job-bullets">
+          <li>Oversaw commercial licensing partnerships and platform negotiations.</li>
+          <li>Collaborated with legal, finance, and tech teams to operationalize deals.</li>
+          <li>Streamlined internal systems for catalog eligibility and reporting compliance.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title-block">
+            <div class="job-title">Associate Manager, Digital Licensing</div>
+            <div class="job-company">Downtown Music Holdings</div>
+          </div>
+          <div class="job-meta">
+            <div class="job-dates">May 2022 – Jan 2024</div>
+            <div class="job-location">NYC / Miami, FL</div>
+          </div>
+        </div>
+        <ul class="job-bullets">
+          <li>Supported direct licensing efforts for publishing and sound recording assets.</li>
+          <li>Analyzed revenue reports and shaped strategic terms for renewals.</li>
+          <li>Developed licensing positions aligned with local and international copyright law.</li>
+        </ul>
+      </div>
+
+      <div class="job">
+        <div class="job-header">
+          <div class="job-title-block">
+            <div class="job-title">Inbound Sales Specialist</div>
+            <div class="job-company">Songtrust</div>
+          </div>
+          <div class="job-meta">
+            <div class="job-dates">Aug 2019 – May 2022</div>
+            <div class="job-location">New York, NY</div>
+          </div>
+        </div>
+        <ul class="job-bullets">
+          <li>Managed inbound sales funnel and client onboarding for publishing administration services.</li>
+          <li>Educated rights holders on registration, collection, and royalty mechanics across global societies.</li>
+          <li>Contributed to scaling revenue during a period of rapid user growth.</li>
+        </ul>
+      </div>
+
+    </section>
+
+  </main>
+</div>
+</body>
+</html>
