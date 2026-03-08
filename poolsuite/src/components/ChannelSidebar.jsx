@@ -3,15 +3,9 @@ import { CHANNELS } from '../channels';
 export function ChannelSidebar({ activeId, onSelect }) {
   return (
     <div className="ps-sidebar">
-      <div className="window">
-        <div className="title-bar">
-          <div className="title-bar-text">CHANNELS</div>
-          <div className="title-bar-controls">
-            <button aria-label="Minimize" />
-            <button aria-label="Maximize" />
-          </div>
-        </div>
-        <div className="window-body">
+      <div className="ds-panel">
+        <div className="ds-panel-header">STATIONS</div>
+        <div className="ds-panel-body">
           {CHANNELS.map((ch) => (
             <button
               key={ch.id}

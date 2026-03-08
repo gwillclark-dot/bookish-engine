@@ -39,18 +39,13 @@ function App() {
         <ChannelSidebar activeId={activeChannel?.id} onSelect={handleSelectChannel} />
 
         <div className="ps-main">
-          <div className="window">
-            <div className="title-bar">
-              <div className="title-bar-text">
-                {activeChannel ? `${activeChannel.emoji} ${activeChannel.name} — ${activeChannel.vibe}` : 'NOW PLAYING'}
-              </div>
-              <div className="title-bar-controls">
-                <button aria-label="Minimize" />
-                <button aria-label="Maximize" />
-                <button aria-label="Close" />
-              </div>
+          <div className="ds-panel">
+            <div className="ds-panel-header">
+              {activeChannel
+                ? `${activeChannel.name} — ${activeChannel.vibe}`
+                : 'NOW PLAYING'}
             </div>
-            <div className="window-body">
+            <div className="ds-panel-body">
               <NowPlaying
                 channel={activeChannel}
                 currentVideo={currentVideo}

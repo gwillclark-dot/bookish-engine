@@ -1,20 +1,16 @@
 export function PlayerBar({ channel, playing, volume, onToggle, onNext, onPrev, onVolume }) {
   return (
     <div className="ps-player">
-      <div className="window">
-        <div className="title-bar">
-          <div className="title-bar-text">POOLSUITE FM</div>
-          <div className="title-bar-controls">
-            <button aria-label="Help" />
-          </div>
-        </div>
-        <div className="window-body">
+      <div className="ds-panel">
+        <div className="ds-panel-body">
 
-          <div className="ps-logo">⛱ PS.FM</div>
+          <div className="ds-logo">
+            DRIVER<span className="ds-logo-accent">SIDE</span>
+          </div>
 
           <div className="player-controls">
             <button title="Previous" onClick={onPrev}>⏮</button>
-            <button title={playing ? 'Pause' : 'Play'} onClick={onToggle}>
+            <button className="btn-play" title={playing ? 'Pause' : 'Play'} onClick={onToggle}>
               {playing ? '⏸' : '▶'}
             </button>
             <button title="Next" onClick={onNext}>⏭</button>
@@ -22,7 +18,7 @@ export function PlayerBar({ channel, playing, volume, onToggle, onNext, onPrev, 
 
           <div className="player-track-info">
             <div className="player-track-name">
-              {channel ? `${channel.emoji}  ${channel.name}` : 'SELECT A CHANNEL'}
+              {channel ? `${channel.emoji}  ${channel.name}` : 'SELECT A STATION'}
             </div>
             <div className="player-track-sub">
               {channel ? channel.vibe : 'TUNE IN TO BEGIN'}
@@ -30,7 +26,7 @@ export function PlayerBar({ channel, playing, volume, onToggle, onNext, onPrev, 
           </div>
 
           <div className="player-volume">
-            <span>🔈</span>
+            <span>▾</span>
             <input
               type="range"
               min="0"
@@ -38,7 +34,7 @@ export function PlayerBar({ channel, playing, volume, onToggle, onNext, onPrev, 
               value={volume}
               onChange={(e) => onVolume(Number(e.target.value))}
             />
-            <span>🔊</span>
+            <span>▴</span>
           </div>
 
           <div className={`status-light ${playing ? 'playing' : ''}`} title={playing ? 'ON AIR' : 'STANDBY'} />
